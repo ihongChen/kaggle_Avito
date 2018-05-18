@@ -1,22 +1,26 @@
 # Avito demand prediction 
 
 when a seller place an Ad on the platform, try to predict it review/selling probability for that item. We got text/image/tabular data.
+
 # workflow 
+
 ## eda 
+- `eda1.ipynb` explore
 - supplement?? 
     - same ad display periods as train (3/15-3/28) 
     - how to use it?
-- 
 - `item_id` is pkey (train/test)
 - `user_id` map to `uidx`, smaller `uidx`(almost) imply larger # of `item_seq_number` per user (higher corr with prob)
-- 
-## features engineering
 
+## features engineering
+- `feat0_basic0.ipynb`: 
+    - `uidx`, `iidx`, `iid` : replace `user_id`,`item_seq_number`,`item_id`
+    - `region_city_label` encode combination of `region`, `city`
 - high corr vs `deal_probabilty`
     - `image_top_1` 
     - `uidx`
     - `ads_cnt_by_iid`
-    - 
+
 - (from) model importance 
 - FM ?
      - `deal_prob` by (`uidx`,`iidx`,`region_city2_label`,)
@@ -24,6 +28,7 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
         - only bias (some have high corr with `deal_prob` )
         - interaction(poly2) importance may not exist
      - train on groupby count 
+        - cnt by (`uidx`,`region_city_label`)
 ## cv 
     - 
 ## modeling 
@@ -44,6 +49,8 @@ kernel, discussion, paper ...etc
     - image features 
         - [Natural Growth Patterns (Fractals of Nature)](https://www.kaggle.com/the1owl/natural-growth-patterns-fractals-of-nature/code)
         - 
+    - image caption 
+        - [tutorial](https://machinelearningmastery.com/develop-a-deep-learning-caption-generation-model-in-python/)
 - text
     - [using train_active for word embedding](https://www.kaggle.com/christofhenkel/using-train-active-for-training-word-embeddings/code)
 

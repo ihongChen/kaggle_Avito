@@ -22,22 +22,32 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
     - `ads_cnt_by_iid`
 
 - (from) model importance 
-- FM ?
+- FM 
      - `deal_prob` by (`uidx`,`iidx`,`region_city2_label`,)
         - all latents vector ~ zeros 
         - only bias (some have high corr with `deal_prob` )
         - interaction(poly2) importance may not exist
      - train on groupby count 
         - cnt by (`uidx`,`region_city_label`)
+        - save to `fm_uidx_rc_cnt_lat2.h5`
+- images 
+- text 
+    work on `description`, and `title` columns
+    - tfidf (ngram=2,max_feats=10**5) + tsvd(dim=5)
+    - hashing (ngram=2) + tsvd(dim=5) 
 ## cv 
     - 
 ## modeling 
     - lgbm
     - FM
+    - nn 
 
 ## ensemble 
     - blending 
     - 
+
+# MySubmit History
+1. try basic_feat0 + text_feat0 +  in lgbm
 # useful resource
 kernel, discussion, paper ...etc
 - trick

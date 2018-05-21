@@ -35,8 +35,28 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
     work on `description`, and `title` columns
     - tfidf (ngram=2,max_feats=10**5) + tsvd(dim=5)
     - hashing (ngram=2) + tsvd(dim=5) 
-## cv 
-    - 
+
+## cv
+- `lgb.cv`: (fold=4)
+    - with text 38 features `0.0225`
+        - lgbm: '''
+                    lgbm_params =  {
+                                        'task': 'train',
+                                        'boosting_type': 'gbdt',
+                                        'objective': 'regression',
+                                        'metric': 'rmse',    
+                                        'max_depth': -1,
+                                        'num_leaves': 33,
+                                        'feature_fraction': 0.7,
+                                        'bagging_fraction': 0.8,
+                                        # 'bagging_freq': 5,
+                                        'learning_rate': 0.05,
+                                        'verbose': 20
+                                    }  
+                '''
+        - modify (with `cleanName` func --textfeats) : `0.223908 + 0.000289244`
+        - add `fm_uidx_rc_cnt_latent2` (+5 feats): `0.22397 + 0.000289225`
+        
 ## modeling 
     - lgbm
     - FM

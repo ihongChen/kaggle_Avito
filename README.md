@@ -60,6 +60,7 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
             -(add 5*2 +1 feats)
             (`uidx x param_1`, `uidx x iidx`, `cnt_by_uidx_param1`)
             -  `0.22572 + 0.000345192`
+        - add `cnt_by_uidx_param1`: `0.2256xxx + 0.0003...`
 
     - with text (5*4) features 
         - basic `0.225`

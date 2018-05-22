@@ -38,24 +38,35 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
 
 ## cv
 - `lgb.cv`: (fold=4)
-    - with text 38 features `0.0225`
-        - lgbm: '''
-                    lgbm_params =  {
-                                        'task': 'train',
-                                        'boosting_type': 'gbdt',
-                                        'objective': 'regression',
-                                        'metric': 'rmse',    
-                                        'max_depth': -1,
-                                        'num_leaves': 33,
-                                        'feature_fraction': 0.7,
-                                        'bagging_fraction': 0.8,
-                                        # 'bagging_freq': 5,
-                                        'learning_rate': 0.05,
-                                        'verbose': 20
-                                    }  
-                '''
+    - params:       
+
+            lgbm_params =  {
+                                'task': 'train',
+                                'boosting_type': 'gbdt',
+                                'objective': 'regression',
+                                'metric': 'rmse',    
+                                'max_depth': -1,
+                                'num_leaves': 33,
+                                'feature_fraction': 0.7,
+                                'bagging_fraction': 0.8,
+                                # 'bagging_freq': 5,
+                                'learning_rate': 0.05,
+                                'verbose': 20
+                            }  
+        
+    - with feat0 18 featurs :
+        - base `feat0` :`0.225915 + 0.000336991`
+        - add `feat2_trn_inter_svd` 
+            -(add 5*2 +1 feats)
+            (`uidx x param_1`, `uidx x iidx`, `cnt_by_uidx_param1`)
+            -  `0.22572 + 0.000345192`
+
+    - with text (5*4) features 
+        - basic `0.225`
         - modify (with `cleanName` func --textfeats) : `0.223908 + 0.000289244`
-        - add `fm_uidx_rc_cnt_latent2` (+5 feats): `0.22397 + 0.000289225`
+        - add `fm_uidx_rc_cnt_latent2` (+5 feats): `0.22397 + 0.000289225` (no help!!)
+        - add `feat2_trn_inter_svd` (+11 feats): `0.223852 + 0.000292917` (not that help !!)
+        
         
 ## modeling 
     - lgbm
@@ -84,7 +95,7 @@ kernel, discussion, paper ...etc
 - text
     - [using train_active for word embedding](https://www.kaggle.com/christofhenkel/using-train-active-for-training-word-embeddings/code)
 
-    - 
+    - adjust tsvd + tfidf dissucssion [here](https://www.kaggle.com/c/avito-demand-prediction/discussion/56798)
 - how to do Factorization Machine ?
     - origin paper about FM [Rendle2010FM](https://www.csie.ntu.edu.tw/~b97053/paper/Rendle2010FM.pdf)
     - python implement by top kaggler CPMP [here](https://www.ibm.com/developerworks/community/blogs/jfp/entry/Implementing_Libfm_in_Keras?lang=en_us)

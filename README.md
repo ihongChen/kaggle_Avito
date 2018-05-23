@@ -22,6 +22,8 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
     - `ads_cnt_by_iid`
 
 - (from) model importance 
+    - `region_city_label`
+    - `param1`,`param2`,`parm3`
 - FM 
      - `deal_prob` by (`uidx`,`iidx`,`region_city2_label`,)
         - all latents vector ~ zeros 
@@ -35,7 +37,9 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
     work on `description`, and `title` columns
     - tfidf (ngram=2,max_feats=10**5) + tsvd(dim=5)
     - hashing (ngram=2) + tsvd(dim=5) 
-
+- mean encode 
+- zero prediction (meta_model) 
+    - no help (why?)
 ## cv
 - `lgb.cv`: (fold=4)
     - params:       
@@ -64,10 +68,11 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
 
     - with text (5*4) features 
         - basic `0.225`
-        - modify (with `cleanName` func --textfeats) : `0.223908 + 0.000289244`
+        - modify (with `cleanName` func --textfeats) : `0.223908 + 0.000289244` --> `0.223626 + 0.000272922`
         - add `fm_uidx_rc_cnt_latent2` (+5 feats): `0.22397 + 0.000289225` (no help!!)
         - add `feat2_trn_inter_svd` (+11 feats): `0.223852 + 0.000292917` (not that help !!)
-        
+    - with zero perdict (1) 
+        - no help (cutoff) T/F -->`0.225566 + 0.000314014` wo cutoff -->`0.02258`
         
 ## modeling 
     - lgbm
@@ -76,7 +81,8 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
 
 ## ensemble 
     - blending 
-    - 
+    - stacking
+        - [starter](https://www.kaggle.com/mmueller/stacking-starter)
 
 # MySubmit History
 1. try basic_feat0 + text_feat0 +  in lgbm
@@ -85,12 +91,14 @@ kernel, discussion, paper ...etc
 - trick
     - [tips and trick working with large dataset](https://www.kaggle.com/frankherfert/tips-tricks-for-working-with-large-datasets/code)
 -  image
-    - [recognition](https://www.kaggle.com/wesamelshamy/ad-image-recognition-and-quality-scoring/code)
+    - quality
+        - [recognition](https://www.kaggle.com/wesamelshamy/ad-image-recognition-and-quality-scoring/code)
         - [keras pretrain model](https://www.kaggle.com/gaborfodor/keras-pretrained-models)
-    - [quality](https://www.kaggle.com/shivamb/ideas-for-image-features-and-image-quality)
-    - image features 
+        - [image quality](https://www.kaggle.com/shivamb/ideas-for-image-features-and-image-quality)
         - [Natural Growth Patterns (Fractals of Nature)](https://www.kaggle.com/the1owl/natural-growth-patterns-fractals-of-nature/code)
-        - 
+        
+    - mp
+        - [idea for image features multiprocessing support](https://www.kaggle.com/liuhdsgoal/ideas-for-image-features-multiprocessing-support)
     - image caption 
         - [tutorial](https://machinelearningmastery.com/develop-a-deep-learning-caption-generation-model-in-python/)
 - text

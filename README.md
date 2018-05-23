@@ -52,27 +52,35 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
                                 'max_depth': -1,
                                 'num_leaves': 33,
                                 'feature_fraction': 0.7,
-                                'bagging_fraction': 0.8,
-                                # 'bagging_freq': 5,
-                                'learning_rate': 0.05,
+                                'bagging_fraction': 0.8,                                
+                                'learning_rate': 0.1,
                                 'verbose': 20
-                            }  
+                            },
+            categorical =[
+               'month','day','weekday',
+               'param_1',
+               'param_2','param_3',
+               'category_name','parent_category_name',
+               'region_city_label', 
+               'user_type'
+            ]
+                        
         
     - with feat0 18 featurs :
-        - base `feat0` :`0.225915 + 0.000336991`
-        - add `feat2_trn_inter_svd` 
-            -(add 5*2 +1 feats)
+        - base `feat0` :`0.225915 + 0.000336991` --> (region_city_label as categorical)  `0.225538 + 0.000292427`
+        - add `cnt_by_uidx_param1`: `0.2256xxx + 0.0003...`
+    - with `feat2_trn_inter_svd` 
+        - (add 5*2 +1 feats)
             (`uidx x param_1`, `uidx x iidx`, `cnt_by_uidx_param1`)
             -  `0.22572 + 0.000345192`
-        - add `cnt_by_uidx_param1`: `0.2256xxx + 0.0003...`
-
-    - with text (5*4) features 
-        - basic `0.225`
+        
+    - with text (5*4) features         
         - modify (with `cleanName` func --textfeats) : `0.223908 + 0.000289244` --> `0.223626 + 0.000272922`
         - add `fm_uidx_rc_cnt_latent2` (+5 feats): `0.22397 + 0.000289225` (no help!!)
         - add `feat2_trn_inter_svd` (+11 feats): `0.223852 + 0.000292917` (not that help !!)
     - with zero perdict (1) 
-        - no help (cutoff) T/F -->`0.225566 + 0.000314014` wo cutoff -->`0.02258`
+        - no help (cutoff=0.8,T/F) --> `0.225566 + 0.000314014` wo cutoff -->`0.02258`
+    - with mean encode by ()
         
 ## modeling 
     - lgbm

@@ -38,6 +38,7 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
     - tfidf (ngram=2,max_feats=10**5) + tsvd(dim=5)
     - hashing (ngram=2) + tsvd(dim=5) 
 - mean encode 
+
 - zero prediction (meta_model) 
     - no help (why?)
 ## cv
@@ -79,8 +80,10 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
         - add `fm_uidx_rc_cnt_latent2` (+5 feats): `0.22397 + 0.000289225` (no help!!)
         - add `feat2_trn_inter_svd` (+11 feats): `0.223852 + 0.000292917` (not that help !!)
     - with zero perdict (1) 
-        - no help (cutoff=0.8,T/F) --> `0.225566 + 0.000314014` wo cutoff -->`0.02258`
-    - with mean encode by ()
+        - no help (cutoff=0.8,T/F) --> `0.225566 + 0.000314014` wo cutoff -->`0.2258`
+    - with mean encode by  
+        - no help --> `0.226273 + 0.000289295`
+        - replace category by mean_target --> `0.222957 + 0.000236522`
         
 ## modeling 
     - lgbm

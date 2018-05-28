@@ -37,8 +37,9 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
     work on `description`, and `title` columns
     - tfidf (ngram=2,max_feats=10**5) + tsvd(dim=5)
     - hashing (ngram=2) + tsvd(dim=5) 
-- target encode 
-    - oevrfit !! (cv loop=4 & cvloop=100) data leakage!!
+- mean encode 
+    -[Encoding CV split](https://www.kaggle.com/tnarik/likelihood-encoding-of-categorical-features)
+    - 
 
 - zero prediction (meta_model) 
     - no help (why?)
@@ -85,7 +86,7 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
     - with mean encode by  
         - no help --> `0.226273 + 0.000289295`
         - replace category by mean_target --> `0.222957 + 0.000236522`
-        - solution ?? [Encoding cv split](https://www.kaggle.com/tnarik/likelihood-encoding-of-categorical-features)
+        
 ## modeling 
     - lgbm
     - FM
@@ -97,22 +98,7 @@ when a seller place an Ad on the platform, try to predict it review/selling prob
         - [starter](https://www.kaggle.com/mmueller/stacking-starter)
 
 # MySubmit History
-history
-
-1. local cv: 0.2216 (lb: 0.2276 overfit?)
-        text(20) + mean_target + basic
-2. local cv: 0.2238 (lb: 0.2272)
-        text + basic
-3. local cv: 0.223 (lb: 0.2264)
-        modify image_top_1 to cat
-4. local cv: 0.2178 (lb: 0.2268 overfit)
-        (text+basic) + mean (nfolds=100)
-5. local cv: 0.2201 (lb: 0.2273 overfit...)
-        modify mean with same out of fold idx
-6. local cv: 0.2213 (lb: 0.2280 overfit)
-        mean without strified kfolds (use only kfold=4)
-
-
+1. try basic_feat0 + text_feat0 +  in lgbm
 # useful resource
 kernel, discussion, paper ...etc
 - trick
@@ -132,6 +118,7 @@ kernel, discussion, paper ...etc
     - [using train_active for word embedding](https://www.kaggle.com/christofhenkel/using-train-active-for-training-word-embeddings/code)
 
     - adjust tsvd + tfidf dissucssion [here](https://www.kaggle.com/c/avito-demand-prediction/discussion/56798)
+    - Feature union and ridge trick
 - how to do Factorization Machine ?
     - origin paper about FM [Rendle2010FM](https://www.csie.ntu.edu.tw/~b97053/paper/Rendle2010FM.pdf)
     - python implement by top kaggler CPMP [here](https://www.ibm.com/developerworks/community/blogs/jfp/entry/Implementing_Libfm_in_Keras?lang=en_us)
